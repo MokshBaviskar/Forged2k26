@@ -1,0 +1,243 @@
+:root {
+            --bg-black: #050505;
+            --gold-primary: #D4AF37;
+            --gold-light: #F3E5AB;
+            --gold-dark: #997A00;
+            --charcoal: #1a1a1a;
+            --text-light: #eaeaea;
+            --text-muted: #888;
+            --gold-gradient: linear-gradient(45deg, var(--gold-dark), var(--gold-primary), var(--gold-light), var(--gold-primary));
+            --glass-bg: rgba(26, 26, 26, 0.8);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+        }
+
+        html {
+            scroll-behavior: smooth;
+            background-color: #000;
+        }
+
+        body {
+            /* Mobile App Constraint */
+            max-width: 480px;
+            margin: 0 auto;
+            background-color: var(--bg-black);
+            color: var(--text-light);
+            font-family: 'Montserrat', sans-serif;
+            position: relative;
+            overflow-x: hidden;
+            overflow-y: hidden; /* Locked for intro */
+            min-height: 100vh;
+            box-shadow: 0 0 50px rgba(212, 175, 55, 0.05);
+        }
+
+        h1, h2, h3, .serif {
+            font-family: 'Playfair Display', serif;
+            font-weight: 400;
+        }
+
+        a { text-decoration: none; color: inherit; }
+
+        .gold-text {
+            background: var(--gold-gradient);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shine 5s linear infinite;
+        }
+
+        @keyframes shine { to { background-position: 200% center; } }
+
+        /* Mobile Buttons */
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 16px;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border: 1px solid var(--gold-primary);
+            background: transparent;
+            color: var(--gold-primary);
+            text-align: center;
+            border-radius: 4px;
+            transition: var(--transition);
+            margin-bottom: 1rem;
+        }
+        .btn:active {
+            background: rgba(212, 175, 55, 0.2);
+            transform: scale(0.98);
+        }
+        .btn-solid {
+            background: var(--gold-primary);
+            color: var(--bg-black);
+        }
+        .btn-solid:active {
+            background: var(--gold-dark);
+        }
+
+        /* Cinematic Intro */
+        #intro {
+            position: fixed;
+            top: 0; left: 50%; transform: translateX(-50%);
+            width: 100%; max-width: 480px; height: 100vh;
+            background: var(--bg-black);
+            z-index: 1000;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            transition: opacity 1.2s ease-in-out;
+        }
+        .intro-line {
+            width: 0; height: 1px; background: var(--gold-gradient);
+            animation: expandLine 1.5s forwards ease-in-out;
+        }
+        .intro-content {
+            opacity: 0; text-align: center; margin-top: 2rem; padding: 0 1rem;
+            animation: fadeIn 2s 1.5s forwards ease-in-out;
+        }
+        .intro-label {
+            font-size: 0.7rem; letter-spacing: 3px; color: var(--gold-primary); margin-bottom: 1rem;
+        }
+        .intro-title {
+            font-size: 2.2rem; margin-bottom: 2rem; line-height: 1.2;
+        }
+        .skip-btn {
+            position: absolute; bottom: 3rem; font-size: 0.8rem; letter-spacing: 2px;
+            color: var(--text-muted); border: none; background: none; padding: 10px;
+        }
+        .particles {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none;
+            background-image: radial-gradient(circle, var(--gold-primary) 1px, transparent 1px);
+            background-size: 40px 40px; opacity: 0.05; animation: float 20s linear infinite;
+        }
+
+        @keyframes expandLine { to { width: 80%; } }
+        @keyframes fadeIn { to { opacity: 1; } }
+        @keyframes float { 0% { background-position: 0 0; } 100% { background-position: 80px 80px; } }
+
+        /* App-Like Bottom Nav */
+        nav {
+            position: fixed; bottom: 0; left: 50%; transform: translateX(-50%);
+            width: 100%; max-width: 480px;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            display: flex; justify-content: space-around;
+            padding: 12px 0; padding-bottom: calc(12px + env(safe-area-inset-bottom));
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+            z-index: 100;
+        }
+        nav a {
+            display: flex; flex-direction: column; align-items: center; gap: 4px;
+            font-size: 0.65rem; letter-spacing: 1px; text-transform: uppercase;
+            color: var(--text-muted); transition: var(--transition);
+        }
+        nav a .icon { font-size: 1.2rem; margin-bottom: 2px; }
+        nav a.active { color: var(--gold-primary); }
+
+        /* Sections */
+        section {
+            padding: 4rem 1.5rem 6rem; /* Extra bottom padding for nav */
+            min-height: 100vh;
+            display: flex; flex-direction: column; justify-content: center;
+        }
+        .section-header { text-align: center; margin-bottom: 3rem; }
+        .section-title { font-size: 2rem; margin-bottom: 0.5rem; }
+        .section-subtitle { font-size: 0.8rem; letter-spacing: 2px; color: var(--gold-primary); text-transform: uppercase; }
+
+        /* Hero */
+        #hero {
+            position: relative; text-align: center; padding-top: 6rem; justify-content: flex-start;
+        }
+        .hero-glow {
+            position: absolute; top: 40%; left: 50%; transform: translate(-50%, -50%);
+            width: 100%; height: 100%;
+            background: radial-gradient(circle, rgba(212,175,55,0.08) 0%, transparent 70%); z-index: -1;
+        }
+        .hero-headline { font-size: 2.8rem; line-height: 1.1; margin-bottom: 1rem; }
+        .hero-sub { font-size: 1rem; color: var(--text-muted); margin-bottom: 2.5rem; }
+        .info-card {
+            background: var(--glass-bg);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem;
+            display: flex; flex-direction: column; gap: 1rem;
+        }
+        .info-row { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 0.8rem; }
+        .info-row:last-child { border-bottom: none; padding-bottom: 0; }
+        .info-label { font-size: 0.7rem; letter-spacing: 1px; color: var(--gold-primary); }
+        .info-value { font-size: 0.95rem; text-align: right; }
+
+        /* Countdown */
+        #countdown-container {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 2rem;
+        }
+        .time-box {
+            background: var(--charcoal); border: 1px solid rgba(212, 175, 55, 0.15);
+            padding: 1rem; text-align: center; border-radius: 6px;
+        }
+        .time-val { font-size: 1.8rem; font-family: 'Playfair Display', serif; color: var(--gold-primary); }
+        .time-label { font-size: 0.65rem; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); margin-top: 4px; }
+
+        /* Cards */
+        .card, .host-card {
+            background: var(--glass-bg); border: 1px solid rgba(212, 175, 55, 0.2);
+            padding: 2rem 1.5rem; text-align: center; border-radius: 8px; margin-bottom: 1.5rem;
+            position: relative; overflow: hidden;
+        }
+        .card::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: var(--gold-gradient);
+        }
+        .card-icon { font-size: 1.8rem; color: var(--gold-primary); margin-bottom: 1rem; }
+        .card h3, .host-name { font-size: 1.4rem; margin-bottom: 0.5rem; }
+        .card p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; margin-bottom: 1.5rem; }
+
+        /* Booking */
+        .booking-wrapper { background: var(--charcoal); border: 1px solid var(--gold-primary); padding: 2rem 1.5rem; border-radius: 8px; }
+        .ticket-type { text-align: center; border-bottom: 1px solid rgba(212, 175, 55, 0.2); padding-bottom: 1.5rem; margin-bottom: 1.5rem; }
+        .ticket-type h3 { font-size: 1.5rem; margin-bottom: 0.3rem; }
+        .ticket-price { color: var(--gold-primary); font-size: 1rem; }
+        
+        .form-group { margin-bottom: 1.2rem; }
+        .form-label { display: block; font-size: 0.75rem; letter-spacing: 1px; margin-bottom: 0.5rem; color: var(--text-light); }
+        .form-control {
+            width: 100%; padding: 14px; background: #111; border: 1px solid rgba(212, 175, 55, 0.3);
+            color: var(--text-light); font-family: inherit; font-size: 16px; /* 16px prevents iOS zoom */
+            border-radius: 4px;
+        }
+        .form-control:focus { outline: none; border-color: var(--gold-primary); }
+        
+        .summary { background: #000; padding: 1rem; margin-bottom: 1.5rem; border-left: 2px solid var(--gold-primary); font-size: 0.8rem; color: var(--text-muted); line-height: 1.5; }
+        
+        #booking-success { display: none; text-align: center; padding: 1rem 0; }
+        #booking-success h3 { color: var(--gold-primary); margin-bottom: 1rem; font-size: 1.5rem; }
+        #booking-success p { font-size: 0.9rem; line-height: 1.5; }
+
+        /* Hosts */
+        .host-role { font-size: 0.75rem; color: var(--gold-primary); letter-spacing: 2px; margin-bottom: 1.2rem; text-transform: uppercase; }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid rgba(212, 175, 55, 0.2); padding: 3rem 1.5rem 6rem;
+            text-align: center; background: #000;
+        }
+        .footer-title { font-size: 1.5rem; margin-bottom: 1.5rem; }
+        .footer-info { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 2rem; color: var(--text-muted); font-size: 0.8rem; }
+        .copyright { font-size: 0.7rem; color: #555; border-top: 1px solid #1a1a1a; padding-top: 1.5rem; line-height: 1.6; }
+
+        /* Toast */
+        #toast {
+            visibility: hidden; background-color: var(--gold-primary); color: var(--bg-black);
+            text-align: center; border-radius: 20px; padding: 12px 24px;
+            position: fixed; z-index: 10000; left: 50%; bottom: 80px; transform: translateX(-50%);
+            font-size: 0.85rem; font-weight: 600; opacity: 0; transition: opacity 0.3s;
+            white-space: nowrap; box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+        }
+        #toast.show { visibility: visible; opacity: 1; }
